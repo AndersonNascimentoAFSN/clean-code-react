@@ -2,6 +2,8 @@ import { useState } from "react"
 import { Footer } from "./Components/Footer"
 import { Header } from "./Components/Header"
 
+import * as Input from './Components/InputComposition'
+
 // Dois critérios para componentização:
 // 1. Quando eu tenho algo repetitivo;
 // 2. Quando eu consigo isolar algo do seu contexto (sem prejudicar o comportamento original);
@@ -10,12 +12,23 @@ export function App() {
   const [todos, setTodo] = useState<string[]>([])
 
   function handleCreateNewTodo() {
-    
+
   }
+
+  const isTodoListEmpty = todos.length === 0
 
   return (
     <div>
-      <Header onCreateNewTodo={() => {}}/>
+      <Header onCreateNewTodo={() => { }} />
+
+      <Input.Root>
+        <Input.Label />
+        <Input.FormField />
+        <Input.Icon>
+          <span></span>
+        </Input.Icon>
+        <Input.ErrorMessage message="Digite seu nome corretamente" />
+      </Input.Root>
 
       <main>
         <h2>Advantages</h2>
@@ -33,6 +46,11 @@ export function App() {
         </section>
 
         <ul>{todos.map(todo => <li key={todo}>{todo}</li>)}</ul>
+
+        {isTodoListEmpty && (
+          <p>Nenhum todo cadastrado.</p>
+        )}
+
       </main>
 
       <Footer />
